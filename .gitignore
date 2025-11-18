@@ -1,0 +1,16 @@
+# n8n persistence (NO subir estas carpetas)
+n8n/n8n_data/
+n8n/postgres_data/
+
+# Python / Node / cache
+__pycache__/
+*.log
+node_modules/
+.env
+
+# MacOS metadata
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
