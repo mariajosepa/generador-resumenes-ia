@@ -47,8 +47,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        832,
-        16
+        880,
+        -32
       ],
       "id": "a3944a62-d046-4b21-aacf-eae101ad1505",
       "name": "HTTP Request",
@@ -127,15 +127,14 @@
                     "rightValue": "text/plain",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "operation": "contains"
                     }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "IsText"
+              "outputKey": "isText"
             },
             {
               "conditions": {
@@ -152,7 +151,7 @@
                     "rightValue": "=^https?://",
                     "operator": {
                       "type": "string",
-                      "operation": "contains"
+                      "operation": "regex"
                     }
                   }
                 ],
@@ -168,11 +167,27 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        160,
+        80,
         -32
       ],
       "id": "5f64d1b7-b5d2-4db1-a359-b347659124f4",
       "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "file",
+        "destinationKey": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        480,
+        0
+      ],
+      "id": "235ea5d2-04e8-4fd5-a958-8dad93a12048",
+      "name": "Extract from File1"
     }
   ],
   "pinData": {},
@@ -209,8 +224,25 @@
           }
         ],
         [],
-        [],
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ],
         []
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -218,7 +250,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b42895b4-792a-43e4-b865-682c97faa3b8",
+  "versionId": "b5c2ef7e-354d-4f80-ba6e-518d22e44353",
   "meta": {
     "instanceId": "b8707d70aa775c047e418a19080c8b7ae7a108df1a3f7bce0b74e5b16b63013c"
   },
