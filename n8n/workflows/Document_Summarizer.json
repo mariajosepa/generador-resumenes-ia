@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -144,
-        0
+        -1232,
+        256
       ],
-      "id": "60a0080a-546a-4d98-8368-00396ab7671a",
+      "id": "0dbce13f-c49c-489d-9e45-fa0a992d2d50",
       "name": "Webhook",
       "webhookId": "aef66c8a-f831-44b8-b400-b5168cfb2825"
     },
@@ -27,10 +27,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        480,
-        -272
+        32,
+        -48
       ],
-      "id": "d7745fc6-7795-44ea-a31b-aa4513bd5b54",
+      "id": "4e29f435-1f7e-40ac-94e4-2eca7bd14832",
       "name": "Extract from File"
     },
     {
@@ -41,21 +41,21 @@
         "genericAuthType": "httpBearerAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Eres un sistema experto en generar resúmenes ejecutivos claros y concisos.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Resume el siguiente documento en máximo 10 puntos ejecutivos:\\n\\n{{ $json.text.replace(/\\n/g, '\\\\n') }}\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.3\n}",
+        "jsonBody": "={{\n  {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Eres un sistema experto en generar resúmenes ejecutivos claros y concisos.\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": \"Resume el siguiente documento en máximo 10 puntos ejecutivos:\\n\\n\" + $json.text\n      }\n    ],\n    \"max_tokens\": 500,\n    \"temperature\": 0.3\n  }\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        880,
-        -32
+        800,
+        208
       ],
-      "id": "a3944a62-d046-4b21-aacf-eae101ad1505",
+      "id": "3941e4ee-c92c-466e-bba0-af0cf87d6926",
       "name": "HTTP Request",
       "credentials": {
         "httpBearerAuth": {
-          "id": "BNY8R3yrpdPYS3tS",
-          "name": "Github Models Bearer Token"
+          "id": "REptNvbdkd33FQJx",
+          "name": "Bearer Auth account"
         }
       }
     },
@@ -98,12 +98,11 @@
                 "conditions": [
                   {
                     "id": "70c365c2-de11-4324-8a23-f9102ee4db55",
-                    "leftValue": "={{ $binary.file.mimeType || $json.mimeType }}",
-                    "rightValue": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    "leftValue": "={{ $binary.file.fileName }}",
+                    "rightValue": ".docx",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "operation": "endsWith"
                     }
                   }
                 ],
@@ -167,10 +166,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        80,
-        -32
+        -976,
+        224
       ],
-      "id": "5f64d1b7-b5d2-4db1-a359-b347659124f4",
+      "id": "d7202294-90dd-4380-8748-2f95abceb147",
       "name": "Switch"
     },
     {
@@ -183,11 +182,152 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        480,
-        0
+        128,
+        448
       ],
-      "id": "235ea5d2-04e8-4fd5-a958-8dad93a12048",
+      "id": "0befdd3d-3524-4e3c-b911-d48149e5b00e",
       "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.zamzar.com/v1/jobs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "source_file",
+              "inputDataFieldName": "file"
+            },
+            {
+              "name": "target_format",
+              "value": "txt"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -416,
+        208
+      ],
+      "id": "85b4bbde-ab78-4ae5-ac05-e2d6182d7f0e",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QMdA4aULZo61GAk1",
+          "name": "ZAMZAR_CUSTOM_AUTH"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.zamzar.com/v1/jobs/{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        64,
+        208
+      ],
+      "id": "1d0a3ec1-fe9a-4686-83b2-29fa7014ab41",
+      "name": "HTTP Request2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QMdA4aULZo61GAk1",
+          "name": "ZAMZAR_CUSTOM_AUTH"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        432,
+        208
+      ],
+      "id": "7ea096db-3859-4dda-9f5b-94a2ef439c55",
+      "name": "Extract from File2"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.zamzar.com/v1/files/{{ $json.target_files[0].id }}/content",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "b07115fc-622c-4dfe-a623-d443a0787c20",
+      "name": "HTTP Request3",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QMdA4aULZo61GAk1",
+          "name": "ZAMZAR_CUSTOM_AUTH"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -176,
+        208
+      ],
+      "id": "ed7996fe-ec37-4103-ad5a-11d509b29573",
+      "name": "Wait",
+      "webhookId": "2b470ba2-fd84-4024-b7a3-f9c581ccab0f"
     }
   ],
   "pinData": {},
@@ -223,15 +363,20 @@
             "index": 0
           }
         ],
-        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Extract from File1",
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Extract from File1": {
@@ -244,16 +389,72 @@
           }
         ]
       ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b5c2ef7e-354d-4f80-ba6e-518d22e44353",
+  "versionId": "208b9465-f348-404a-9c1d-977f1144faee",
   "meta": {
-    "instanceId": "b8707d70aa775c047e418a19080c8b7ae7a108df1a3f7bce0b74e5b16b63013c"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "826759b3db14fdd0c9651e05c1500be9cf61ace4b0256e9b0e7c1b006c590413"
   },
-  "id": "LDHLhbMTvDUoV8cU",
+  "id": "4KvjeHaWkc4pY6DT",
   "tags": []
 }
