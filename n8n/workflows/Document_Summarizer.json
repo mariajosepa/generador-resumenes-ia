@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1232,
-        256
+        -2304,
+        -160
       ],
-      "id": "0dbce13f-c49c-489d-9e45-fa0a992d2d50",
+      "id": "22c12ccd-764d-4f1b-a607-10bc808506e8",
       "name": "Webhook",
       "webhookId": "aef66c8a-f831-44b8-b400-b5168cfb2825"
     },
@@ -27,10 +27,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        32,
-        -48
+        -1040,
+        -464
       ],
-      "id": "4e29f435-1f7e-40ac-94e4-2eca7bd14832",
+      "id": "af92fb3c-dc70-40a6-b73f-dc1d2c78ce47",
       "name": "Extract from File"
     },
     {
@@ -47,14 +47,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        800,
-        208
+        -272,
+        -208
       ],
-      "id": "3941e4ee-c92c-466e-bba0-af0cf87d6926",
+      "id": "f08e202e-854d-4270-be81-cecd8b42fb47",
       "name": "HTTP Request",
       "credentials": {
         "httpBearerAuth": {
-          "id": "REptNvbdkd33FQJx",
+          "id": "0thf45qhaObCwvj7",
           "name": "Bearer Auth account"
         }
       }
@@ -146,7 +146,7 @@
                 "conditions": [
                   {
                     "id": "14faaf84-4616-470f-8e66-822d71deda35",
-                    "leftValue": "={{ $binary.file.mimeType || $json.mimeType }}",
+                    "leftValue": "={{$json.body.url}}\n",
                     "rightValue": "=^https?://",
                     "operator": {
                       "type": "string",
@@ -166,10 +166,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        -976,
-        224
+        -2048,
+        -192
       ],
-      "id": "d7202294-90dd-4380-8748-2f95abceb147",
+      "id": "a1ff1240-0fdf-4a74-aa24-b88782b8f9bb",
       "name": "Switch"
     },
     {
@@ -182,10 +182,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        128,
-        448
+        -1024,
+        32
       ],
-      "id": "0befdd3d-3524-4e3c-b911-d48149e5b00e",
+      "id": "5184f12f-dd42-42ad-92bd-3980f9f2baaa",
       "name": "Extract from File1"
     },
     {
@@ -220,15 +220,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -416,
-        208
+        -1488,
+        -208
       ],
-      "id": "85b4bbde-ab78-4ae5-ac05-e2d6182d7f0e",
+      "id": "599b4518-9ad5-430d-af97-ef65998b7913",
       "name": "HTTP Request1",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QMdA4aULZo61GAk1",
-          "name": "ZAMZAR_CUSTOM_AUTH"
+          "id": "EIR7Qtkne91zLCch",
+          "name": "Header Auth account"
         }
       }
     },
@@ -254,15 +254,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        64,
-        208
+        -1008,
+        -208
       ],
-      "id": "1d0a3ec1-fe9a-4686-83b2-29fa7014ab41",
+      "id": "e9d5dd25-a99b-41e9-9876-2380d4d6d6a9",
       "name": "HTTP Request2",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QMdA4aULZo61GAk1",
-          "name": "ZAMZAR_CUSTOM_AUTH"
+          "id": "EIR7Qtkne91zLCch",
+          "name": "Header Auth account"
         }
       }
     },
@@ -275,10 +275,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        432,
-        208
+        -640,
+        -208
       ],
-      "id": "7ea096db-3859-4dda-9f5b-94a2ef439c55",
+      "id": "f4b50217-3f34-4c27-827c-02ab43d9a04c",
       "name": "Extract from File2"
     },
     {
@@ -303,15 +303,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        256,
-        208
+        -816,
+        -208
       ],
-      "id": "b07115fc-622c-4dfe-a623-d443a0787c20",
+      "id": "f637de16-b989-4f43-9600-5dc18c943679",
       "name": "HTTP Request3",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QMdA4aULZo61GAk1",
-          "name": "ZAMZAR_CUSTOM_AUTH"
+          "id": "EIR7Qtkne91zLCch",
+          "name": "Header Auth account"
         }
       }
     },
@@ -322,12 +322,127 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -176,
-        208
+        -1248,
+        -208
       ],
-      "id": "ed7996fe-ec37-4103-ad5a-11d509b29573",
+      "id": "cb8184e7-9102-459a-851e-0f368c0dc994",
       "name": "Wait",
       "webhookId": "2b470ba2-fd84-4024-b7a3-f9c581ccab0f"
+    },
+    {
+      "parameters": {
+        "url": "={{$json.body.url}}\n",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1440,
+        160
+      ],
+      "id": "37f70b0a-5231-490b-b784-a07d5904af80",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $binary.data.mimeType === 'application/pdf' || $json.url.endsWith('.pdf') }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "3429506e-6436-4f8a-b104-33164ef3961c"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "urlPDF"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "87789796-bd31-4eae-a59a-6fb4c74c60e6",
+                    "leftValue": "={{ $binary.data.mimeType === 'text/html' }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "urlHTML"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -1232,
+        224
+      ],
+      "id": "dd854173-1077-4ac8-9157-a4d2ac784565",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -928,
+        224
+      ],
+      "id": "a79cf829-8583-45e8-9fa7-011f22854c15",
+      "name": "Extract from File4"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// 1. Leer el HTML desde el binario descargado\nconst html = Buffer.from(item.binary.data.data, 'base64').toString('utf8');\n\n// 2. Limpiar HTML complejo: scripts, estilos, JSON-LD, comentarios\nlet text = html\n  .replace(/<script[^>]*>[\\s\\S]*?<\\/script>/gi, \" \")\n  .replace(/<style[^>]*>[\\s\\S]*?<\\/style>/gi, \" \")\n  .replace(/<noscript[^>]*>[\\s\\S]*?<\\/noscript>/gi, \" \")\n  .replace(/<!--[\\s\\S]*?-->/g, \" \")\n  .replace(/<[^>]+>/g, \" \")        // eliminar etiquetas HTML\n  .replace(/\\s+/g, \" \")            // espacios múltiples\n  .trim();\n\n// 3. Devolver el texto limpio para el nodo de resumen\nreturn {\n  json: {\n    data: text\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        416
+      ],
+      "id": "53012187-b104-478a-8d54-2ab77f4dc6c0",
+      "name": "Code in JavaScript"
     }
   ],
   "pinData": {},
@@ -373,6 +488,13 @@
         [
           {
             "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request4",
             "type": "main",
             "index": 0
           }
@@ -444,17 +566,67 @@
           }
         ]
       ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "208b9465-f348-404a-9c1d-977f1144faee",
+  "versionId": "041a1fd0-e34b-45bf-ae92-e08e5e7c90e7",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "826759b3db14fdd0c9651e05c1500be9cf61ace4b0256e9b0e7c1b006c590413"
+    "instanceId": "5a27a30f325f4cdc12a8ab71955d8f1932a92675f77a0691b65893f5aab306a7"
   },
-  "id": "4KvjeHaWkc4pY6DT",
+  "id": "8CdKIPuRpn734arU",
   "tags": []
 }
